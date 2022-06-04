@@ -15,7 +15,7 @@ rule trimal_dna:
     resources:
         cpus=config["trimal_threads"],
         time=config["trimal_time"],
-        mem=config["trimal_mem_mb"]
+        mem_mb=config["trimal_mem_mb"]
     shell:
         "mkdir -p {output}; for FILE in `ls {input}/*.fna`; do "
         "{params.trimal_path}/trimal -in $FILE -out {output}/$(basename $FILE) {params.options} > {log.std} 2>&1; "
@@ -40,7 +40,7 @@ rule trimal_protein:
     resources:
         cpus=config["trimal_threads"],
         time=config["trimal_time"],
-        mem=config["trimal_mem_mb"]
+        mem_mb=config["trimal_mem_mb"]
     shell:
         "mkdir -p {output}; for FILE in `ls {input}/*`; do "
         "{params.trimal_path}/trimal -in $FILE -out {output}/$(basename $FILE) {params.options} > {log.std} 2>&1; "

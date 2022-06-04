@@ -14,7 +14,7 @@ rule concat_fasta_dna:
     resources:
         cpus=config["mafft_threads"],
         time=config["mafft_time"],
-        mem=config["mafft_mem_mb"]
+        mem_mb=config["mafft_mem_mb"]
     shell:
         "workflow/scripts/concat_fasta.py -o {output} -i {input}/*.fna 1> {log.std} 2>&1"
 
@@ -35,7 +35,7 @@ rule concat_fasta_protein:
     resources:
         cpus=config["mafft_threads"],
         time=config["mafft_time"],
-        mem=config["mafft_mem_mb"]
+        mem_mb=config["mafft_mem_mb"]
     shell:
         "workflow/scripts/concat_fasta.py -o {output} -i {input}/*.faa 1> {log.std} 2>&1"
 
@@ -59,7 +59,7 @@ rule concat_nexus_dna:
     resources:
         cpus=config["mafft_threads"],
         time=config["mafft_time"],
-        mem=config["mafft_mem_mb"]
+        mem_mb=config["mafft_mem_mb"]
     shell:
         "workflow/scripts/fasta_to_nexus.py -i {input} -t {params.type} -b {params.block} -o {output} 1> {log.std} 2>&1"
 
@@ -83,6 +83,6 @@ rule concat_nexus_protein:
     resources:
         cpus=config["mafft_threads"],
         time=config["mafft_time"],
-        mem=config["mafft_mem_mb"]
+        mem_mb=config["mafft_mem_mb"]
     shell:
         "workflow/scripts/fasta_to_nexus.py -i {input} -t {params.type} -b {params.block} -o {output} 1> {log.std} 2>&1"

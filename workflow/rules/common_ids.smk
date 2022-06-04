@@ -1,6 +1,3 @@
-# localrules: common_ids, species_ids, merged_sequences
-
-
 rule species_ids: # get files with IDs for each species
     input:
         busco_dir_path / "{species}/single_copy_busco_sequences"
@@ -15,7 +12,7 @@ rule species_ids: # get files with IDs for each species
     resources:
         cpus=config["species_ids_threads"],
         time=config["species_ids_time"],
-        mem=config["species_ids_mem_mb"]
+        mem_mb=config["species_ids_mem_mb"]
     shell:
         "ls {input} | grep -P '.fna$' | sed 's/.fna//' > {output} 2> {log.std}"
 
@@ -38,7 +35,7 @@ checkpoint common_ids: # get common IDs for all species and split them into file
     resources:
         cpus=config["common_ids_threads"],
         time=config["common_ids_time"],
-        mem=config["common_ids_mem_mb"]
+        mem_mb=config["common_ids_mem_mb"]
     shell:
         "mkdir -p {output}; cat {input} | sort | uniq -c | awk '{{if($1=={params.nfiles}){{print $2}}}}' | "
         "split -l {params.split_size} --numeric-suffixes - {output}/{params.prefix} 1> {log.std} 2>&1"
@@ -60,7 +57,7 @@ checkpoint merged_sequences: # get merged sequences by common IDs
     resources:
         cpus=config["merged_sequences_threads"],
         time=config["merged_sequences_time"],
-        mem=config["merged_sequences_mem_mb"]
+        mem_mb=config["merged_sequences_mem_mb"]
     shell:
         "workflow/scripts/merged_sequences.py "
         "--common_ids {input} "

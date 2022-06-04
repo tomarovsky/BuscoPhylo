@@ -17,7 +17,7 @@ if config["alignment_tool"] == "mafft":
         resources:
             cpus=config["mafft_threads"],
             time=config["mafft_time"],
-            mem=config["mafft_mem_mb"]
+            mem_mb=config["mafft_mem_mb"]
         threads:
             config["mafft_threads"]
         shell:
@@ -45,7 +45,7 @@ rule mafft_protein:
     resources:
         cpus=config["mafft_threads"],
         time=config["mafft_time"],
-        mem=config["mafft_mem_mb"]
+        mem_mb=config["mafft_mem_mb"]
     threads:
         config["mafft_threads"]
     shell:

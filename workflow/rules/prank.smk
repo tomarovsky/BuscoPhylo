@@ -17,7 +17,7 @@ if config["alignment_tool"] == "prank":
         resources:
             cpus=config["prank_threads"],
             time=config["prank_time"],
-            mem=config["prank_mem_mb"]
+            mem_mb=config["prank_mem_mb"]
         threads:
             config["prank_threads"]
         shell:

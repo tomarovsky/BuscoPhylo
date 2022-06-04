@@ -15,7 +15,7 @@ rule mrbayes_dna:
     resources:
         cpus=config["mrbayes_threads"],
         time=config["mrbayes_time"],
-        mem=config["mrbayes_mem_mb"]
+        mem_mb=config["mrbayes_mem_mb"]
     shell:
         "mkdir -p {output}; "
         "mpirun -np {resources.cpus} {params.mrbayes_path}/mb-mpi {input} {params.options} 1> {log.std} 2>&1; "
@@ -39,7 +39,7 @@ rule mrbayes_protein:
     resources:
         cpus=config["mrbayes_threads"],
         time=config["mrbayes_time"],
-        mem=config["mrbayes_mem_mb"]
+        mem_mb=config["mrbayes_mem_mb"]
     shell:
         "mkdir -p {output}; "
         "mpirun -np {resources.cpus} {params.mrbayes_path}/mb-mpi {input} {params.options} 1> {log.std} 2>&1; "

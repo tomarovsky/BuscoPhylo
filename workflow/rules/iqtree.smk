@@ -16,7 +16,7 @@ rule iqtree_dna:
     resources:
         cpus=config["iqtree_threads"],
         time=config["iqtree_time"],
-        mem=config["iqtree_mem_mb"]
+        mem_mb=config["iqtree_mem_mb"]
     shell:
         "mkdir -p {output}; "
         "{params.iqtree_path}/iqtree -s {input} -pre {params.prefix} -nt {resources.cpus} {params.options} 1> {log.std} 2>&1; "
@@ -41,7 +41,7 @@ rule iqtree_protein:
     resources:
         cpus=config["iqtree_threads"],
         time=config["iqtree_time"],
-        mem=config["iqtree_mem_mb"]
+        mem_mb=config["iqtree_mem_mb"]
     shell:
         "mkdir -p {output}; "
         "{params.iqtree_path}/iqtree -s {input} -pre {params.prefix} -nt {resources.cpus} {params.options} 1> {log.std} 2>&1; "

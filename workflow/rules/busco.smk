@@ -21,7 +21,7 @@ if config['busco_version'] == 3:
         resources:
             cpus=config["busco_threads"],
             time=config["busco_time"],
-            mem=config["busco_mem_mb"],
+            mem_mb=config["busco_mem_mb"],
         threads:
             config["busco_threads"]
         shell:
@@ -55,7 +55,7 @@ elif config['busco_version'] == 5:
             resources:
                 cpus=config["busco_threads"],
                 time=config["busco_time"],
-                mem=config["busco_mem_mb"],
+                mem_mb=config["busco_mem_mb"],
             threads:
                 config["busco_threads"]
             shell:
@@ -87,7 +87,7 @@ elif config['busco_version'] == 5:
             resources:
                 cpus=config["common_ids_threads"],
                 time=config["common_ids_time"],
-                mem=config["common_ids_mem_mb"],
+                mem_mb=config["common_ids_mem_mb"],
             threads:
                 config["common_ids_threads"]
             shell:
@@ -121,7 +121,7 @@ elif config['busco_version'] == 5:
             resources:
                 cpus=config["busco_threads"],
                 time=config["busco_time"],
-                mem=config["busco_mem_mb"],
+                mem_mb=config["busco_mem_mb"],
             threads:
                 config["busco_threads"]
             shell:
