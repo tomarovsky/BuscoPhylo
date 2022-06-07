@@ -128,11 +128,11 @@ elif config['busco_version'] == 5:
                 "mkdir -p {output.busco_outdir}; cd {output.busco_outdir}; "
                 "busco --augustus --augustus_species {params.species} -m {params.mode} "
                 "-i {input} -c {threads} -l {params.busco_dataset_path} -o {params.output_prefix} 1>../../../{log.std} 2>&1; "
-                "mv {params.output_prefix}/* ./; rm -r {params.output_prefix}/; mv run*/* ./; rm -r run*; "
-                "mv full_table.tsv full_table_{params.output_prefix}.tsv; "
-                "mv missing_busco_list.tsv missing_busco_list_{params.output_prefix}.tsv; "
-                "mv short_summary.txt short_summary_{params.output_prefix}.txt; "
-                "mv busco_sequences/single_copy_busco_sequences . "
+                # "mv {params.output_prefix}/* ./; rm -r {params.output_prefix}/; mv run*/* ./; rm -r run*; "
+                # "mv full_table.tsv full_table_{params.output_prefix}.tsv; "
+                # "mv missing_busco_list.tsv missing_busco_list_{params.output_prefix}.tsv; "
+                # "mv short_summary.txt short_summary_{params.output_prefix}.txt; "
+                # "mv busco_sequences/single_copy_busco_sequences . "
     else:
         print("Specify the tool name in 'gene_prediction_tool' parameter! Use 'metaeuk' or 'augustus'")
 else:
