@@ -103,8 +103,8 @@ elif config['busco_version'] == 5:
             output:
                 busco_outdir=directory(busco_dir_path / "{species}"),
                 single_copy_busco_sequences=directory(busco_dir_path / "{species}/single_copy_busco_sequences"),
-                # augustus_gff=directory(busco_dir_path / "{species}/augustus_output/gff"),
-                # summary=busco_dir_path / "{species}/short_summary_{species}.txt"
+                augustus_gff=directory(busco_dir_path / "{species}/augustus_output/gff"),
+                summary=busco_dir_path / "{species}/short_summary_{species}.txt"
             params:
                 mode=config["busco_mode"],
                 species=config["augustus_species"],
