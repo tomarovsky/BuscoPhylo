@@ -130,6 +130,7 @@ elif config['busco_version'] == 5:
                 "-i {input} -c {threads} -l {params.busco_dataset_path} -o {params.output_prefix} 1>../../../{log.std} 2>&1; "
                 "mv {params.output_prefix}/* ./ 1>../../../{log.std} 2>&1; "
                 "rm -r {params.output_prefix}/ 1>../../../{log.std} 2>&1; "
+                "mv augustus_output augustus_output_ 1>../../../{log.std} 2>&1; "
                 "mv run*/* ./ 1>../../../{log.std} 2>&1; "
                 "rm -r run* 1>../../../{log.std} 2>&1; "
                 "mv full_table.tsv full_table_{params.output_prefix}.tsv 1>../../../{log.std} 2>&1; "
