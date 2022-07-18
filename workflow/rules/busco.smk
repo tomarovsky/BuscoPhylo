@@ -67,35 +67,36 @@ elif config['busco_version'] == 5:
                 "mv full_table.tsv full_table_{params.output_prefix}.tsv; "
                 "mv missing_busco_list.tsv missing_busco_list_{params.output_prefix}.tsv; "
                 "mv short_summary.txt short_summary_{params.output_prefix}.txt; "
+                "mv busco_sequences/single_copy_busco_sequences ./ ; "
 
 
-        rule get_CDs_sequences_from_metaeuk_output:
-            input:
-                single_copy_busco_sequences=busco_dir_path / "{species}/busco_sequences/single_copy_busco_sequences",
-                metaeuk_rerun_results=busco_dir_path / "{species}/metaeuk_output/rerun_results",
-                metaeuk_initial_results=busco_dir_path / "{species}/metaeuk_output/initial_results"
-            output:
-                single_copy_CDs_sequences=directory(busco_dir_path / "{species}/single_copy_busco_sequences")
-            log:
-                std=log_dir_path / "get_CDs_sequences_from_metaeuk_output.{species}.log",
-                cluster_log=cluster_log_dir_path / "get_CDs_sequences_from_metaeuk_output.{species}.cluster.log",
-                cluster_err=cluster_log_dir_path / "get_CDs_sequences_from_metaeuk_output.{species}.cluster.err"
-            benchmark:
-                benchmark_dir_path / "get_CDs_sequences_from_metaeuk_output.{species}.benchmark.txt"
-            conda:
-                "../../%s" % config["conda_config"]
-            resources:
-                cpus=config["common_ids_threads"],
-                time=config["common_ids_time"],
-                mem_mb=config["common_ids_mem_mb"],
-            threads:
-                config["common_ids_threads"]
-            shell:
-                "workflow/scripts/CDs_from_MetaEuk.py "
-                "--initial_results {input.metaeuk_initial_results} "
-                "--rerun_results {input.metaeuk_rerun_results} "
-                "--single_copy_busco_sequences {input.single_copy_busco_sequences} "
-                "--outdir {output.single_copy_CDs_sequences} > {log.std} 2>&1 "
+        # rule get_CDs_sequences_from_metaeuk_output:
+        #     input:
+        #         single_copy_busco_sequences=busco_dir_path / "{species}/busco_sequences/single_copy_busco_sequences",
+        #         metaeuk_rerun_results=busco_dir_path / "{species}/metaeuk_output/rerun_results",
+        #         metaeuk_initial_results=busco_dir_path / "{species}/metaeuk_output/initial_results"
+        #     output:
+        #         single_copy_CDs_sequences=directory(busco_dir_path / "{species}/single_copy_busco_sequences")
+        #     log:
+        #         std=log_dir_path / "get_CDs_sequences_from_metaeuk_output.{species}.log",
+        #         cluster_log=cluster_log_dir_path / "get_CDs_sequences_from_metaeuk_output.{species}.cluster.log",
+        #         cluster_err=cluster_log_dir_path / "get_CDs_sequences_from_metaeuk_output.{species}.cluster.err"
+        #     benchmark:
+        #         benchmark_dir_path / "get_CDs_sequences_from_metaeuk_output.{species}.benchmark.txt"
+        #     conda:
+        #         "../../%s" % config["conda_config"]
+        #     resources:
+        #         cpus=config["common_ids_threads"],
+        #         time=config["common_ids_time"],
+        #         mem_mb=config["common_ids_mem_mb"],
+        #     threads:
+        #         config["common_ids_threads"]
+        #     shell:
+        #         "workflow/scripts/CDs_from_MetaEuk.py "
+        #         "--initial_results {input.metaeuk_initial_results} "
+        #         "--rerun_results {input.metaeuk_rerun_results} "
+        #         "--single_copy_busco_sequences {input.single_copy_busco_sequences} "
+        #         "--outdir {output.single_copy_CDs_sequences} > {log.std} 2>&1 "
     elif config['gene_prediction_tool'] == "augustus":
         rule busco5_augustus:
             input:
