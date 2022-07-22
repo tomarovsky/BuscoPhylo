@@ -23,6 +23,6 @@ if config["alignment_tool"] == "prank":
         shell:
             "mkdir -p {output}; "
             "for FILE in `ls {input}/*.fna`; do "
-            "prank -d=$FILE -o={output}/$(basename $FILE) -codon -F > {log.std} 2>&1; "
+            "prank -d=$FILE -o={output}/$(basename $FILE) {params.options} > {log.std} 2>&1; "
             "mv {output}/$(basename $FILE).best.fas {output}/$(basename $FILE); "
             "done; "
