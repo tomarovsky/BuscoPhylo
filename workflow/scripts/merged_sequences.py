@@ -14,7 +14,7 @@ def main():
         out_faa, out_fna = open(outdir / merged_file_faa, 'a'), open(outdir / merged_file_fna, 'a')
         for directory in args.single_copy_files:
             dirpath = Path(directory)
-            header = ">%s" % dirpath.parents[0].stem
+            header = ">%s" % dirpath.parents[1].stem
             with open(dirpath / file_faa, 'r') as f:
                 seq_faa = "%s\n" % f.readlines()[1].strip()
                 outline_faa = "\n".join([header, seq_faa])
