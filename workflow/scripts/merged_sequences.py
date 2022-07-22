@@ -16,11 +16,11 @@ def main():
             dirpath = Path(directory)
             header = ">%s" % dirpath.parents[1].stem
             with open(dirpath / file_faa, 'r') as f:
-                seq_faa = "%s\n" % f.readlines()[1].strip()
+                seq_faa = "".join([line.rstrip() for line in f.readlines()[1:]])
                 outline_faa = "\n".join([header, seq_faa])
                 out_faa.write(outline_faa)
             with open(dirpath / file_fna, 'r') as f:
-                seq_fna = "%s\n" % f.readlines()[1].strip()
+                seq_fna = "".join([line.rstrip() for line in f.readlines()[1:]])
                 outline_fna = "\n".join([header, seq_fna])
                 out_fna.write(outline_fna)
 
