@@ -37,9 +37,9 @@ def expand_template_from_common_ids(wildcards, template):
     N = glob_wildcards(os.path.join(checkpoint_output, "group_{N}")).N
     return expand(str(template), N=N)
 
-#############################################
-#---- the "all" rule ----
-#############################################
+############################
+# ---- the "all" rule ---- #
+############################
 #
 # By default, all steps are run
 #

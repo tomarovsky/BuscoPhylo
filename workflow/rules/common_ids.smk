@@ -1,6 +1,6 @@
 rule species_ids: # get files with IDs for each species
     input:
-        busco_dir_path / "{species}/single_copy_busco_sequences"
+        busco_dir_path / "{species}/busco_sequences/single_copy_busco_sequences"
     output:
         species_ids_dir_path / "{species}.ids"
     log:
@@ -47,7 +47,7 @@ checkpoint merged_sequences: # get merged sequences by common IDs
     output:
         directory(merged_sequences_dir_path / "group_{N}")
     params:
-        single_copy_files=expand(busco_dir_path / "{species}" / "single_copy_busco_sequences", species=config["species_list"])
+        single_copy_files=expand(busco_dir_path / "{species}/busco_sequences/single_copy_busco_sequences", species=config["species_list"])
     log:
         std=log_dir_path / "merged_sequences.{N}.log",
         cluster_log=cluster_log_dir_path / "merged_sequences.{N}.cluster.log",
