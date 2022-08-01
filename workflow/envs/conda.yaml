@@ -1,14 +1,12 @@
 #---- Сonda config ----
 name: buscophylo
 channels:
-  - bioconda
   - conda-forge
+  - bioconda
 dependencies:
-  - python>=3.8
-  - biopython>=1.70
-  - busco>=5.4.0
-  - samtools>=1.10
-  - mafft>=7.4
+  - busco>=5.4.2
+  - biopython
+  - mafft
   - prank
 #  - trimAl=1.2rev59
 #  - iqtree=2.1.3
