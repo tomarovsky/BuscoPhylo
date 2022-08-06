@@ -56,7 +56,7 @@ output_files = [
 
     # trimal:
     lambda w: expand_template_from_common_ids(w, trimal_dir_path / "fna_tmp" / "group_{N}"),
-    lambda w: expand_template_from_common_ids(w, trimal_dir_path / "faa_tmp" / "group_{N}")
+    lambda w: expand_template_from_common_ids(w, trimal_dir_path / "faa_tmp" / "group_{N}"),
 
     # concat alignments:
     concat_alignments_dir_path / fasta_dna_filename,
