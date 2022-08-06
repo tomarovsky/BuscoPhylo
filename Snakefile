@@ -51,12 +51,12 @@ output_files = [
     lambda w: expand_template_from_common_ids(w,merged_sequences_dir_path / "group_{N}"),
 
     # mafft:
-    lambda w: expand_template_from_common_ids(w, alignment_dir_path / "fna_tmp" / "group_{N}"),
-    lambda w: expand_template_from_common_ids(w, alignment_dir_path / "faa_tmp" / "group_{N}"),
+    alignment_dir_path / "fna",
+    alignment_dir_path / "faa",
 
     # trimal:
-    lambda w: expand_template_from_common_ids(w, trimal_dir_path / "fna_tmp" / "group_{N}"),
-    lambda w: expand_template_from_common_ids(w, trimal_dir_path / "faa_tmp" / "group_{N}"),
+    trimal_dir_path / "fna",
+    trimal_dir_path / "faa",
 
     # concat alignments:
     concat_alignments_dir_path / fasta_dna_filename,
@@ -89,22 +89,22 @@ rule all:
         output_files
 
 
-# rule files_transfer:
-#     input:
-#         mafft_fna_dirs=lambda w: expand_template_from_common_ids(w, alignment_dir_path / "fna_tmp" / "group_{N}"),
-#         mafft_faa_dirs=lambda w: expand_template_from_common_ids(w, alignment_dir_path / "faa_tmp" / "group_{N}"),
-#         trimal_fna_dirs=lambda w: expand_template_from_common_ids(w, trimal_dir_path / "fna_tmp" / "group_{N}"),
-#         trimal_faa_dirs=lambda w: expand_template_from_common_ids(w, trimal_dir_path / "faa_tmp" / "group_{N}")
-#     output:
-#         mafft_fna_dir=directory(alignment_dir_path / "fna"),
-#         mafft_faa_dir=directory(alignment_dir_path / "faa"),
-#         trimal_fna_dir=directory(trimal_dir_path / "fna"),
-#         trimal_faa_dir=directory(trimal_dir_path / "faa"),
-#     shell:
-#         "mkdir -p {output.mafft_fna_dir}; for i in {input.mafft_fna_dirs}; do mv $i/*.fna {output.mafft_fna_dir}/; done; "
-#         "mkdir -p {output.mafft_faa_dir}; for i in {input.mafft_faa_dirs}; do mv $i/*.faa {output.mafft_faa_dir}/; done; "
-#         "mkdir -p {output.trimal_fna_dir}; for i in {input.trimal_fna_dirs}; do mv $i/*.fna {output.trimal_fna_dir}/; done; "
-#         "mkdir -p {output.trimal_faa_dir}; for i in {input.trimal_faa_dirs}; do mv $i/*.faa {output.trimal_faa_dir}/; done; "
+rule files_transfer:
+    input:
+        mafft_fna_dirs=lambda w: expand_template_from_common_ids(w, alignment_dir_path / "fna_tmp" / "group_{N}"),
+        mafft_faa_dirs=lambda w: expand_template_from_common_ids(w, alignment_dir_path / "faa_tmp" / "group_{N}"),
+        trimal_fna_dirs=lambda w: expand_template_from_common_ids(w, trimal_dir_path / "fna_tmp" / "group_{N}"),
+        trimal_faa_dirs=lambda w: expand_template_from_common_ids(w, trimal_dir_path / "faa_tmp" / "group_{N}")
+    output:
+        mafft_fna_dir=directory(alignment_dir_path / "fna"),
+        mafft_faa_dir=directory(alignment_dir_path / "faa"),
+        trimal_fna_dir=directory(trimal_dir_path / "fna"),
+        trimal_faa_dir=directory(trimal_dir_path / "faa"),
+    shell:
+        "mkdir -p {output.mafft_fna_dir}; for i in {input.mafft_fna_dirs}; do mv $i/*.fna {output.mafft_fna_dir}/; done; "
+        "mkdir -p {output.mafft_faa_dir}; for i in {input.mafft_faa_dirs}; do mv $i/*.faa {output.mafft_faa_dir}/; done; "
+        "mkdir -p {output.trimal_fna_dir}; for i in {input.trimal_fna_dirs}; do mv $i/*.fna {output.trimal_fna_dir}/; done; "
+        "mkdir -p {output.trimal_faa_dir}; for i in {input.trimal_faa_dirs}; do mv $i/*.faa {output.trimal_faa_dir}/; done; "
 
 
 #---- load rules ----
