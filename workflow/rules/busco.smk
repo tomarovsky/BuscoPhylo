@@ -3,9 +3,9 @@ if config['busco_version'] == 3:
         input:
             genome_dir_path / "{species}.fasta"
         output:
-            busco_outdir=directory(busco_dir_path / "{species}"),
-            single_copy_files_dir = directory(busco_dir_path / "{species}/busco_sequences//single_copy_busco_sequences"),
-            summary=busco_dir_path / "{species}/short_summary_{species}.txt"
+            busco_outdir=protected(directory(busco_dir_path / "{species}")),
+            single_copy_files_dir=protected(directory(busco_dir_path / "{species}/busco_sequences//single_copy_busco_sequences")),
+            summary=protected(busco_dir_path / "{species}/short_summary_{species}.txt")
         params:
             busco_path=config["busco_path"],
             mode=config["busco_mode"],
@@ -36,9 +36,9 @@ elif config['busco_version'] == 5:
             input:
                 genome_dir_path / "{species}.fasta"
             output:
-                busco_outdir=directory(busco_dir_path / "{species}"),
-                single_copy_busco_sequences=directory(busco_dir_path / "{species}/busco_sequences/single_copy_busco_sequences"),
-                summary=busco_dir_path / "{species}/short_summary_{species}.txt"
+                busco_outdir=protected(directory(busco_dir_path / "{species}")),
+                single_copy_busco_sequences=protected(directory(busco_dir_path / "{species}/busco_sequences/single_copy_busco_sequences")),
+                summary=protected(busco_dir_path / "{species}/short_summary_{species}.txt")
             params:
                 mode=config["busco_mode"],
                 busco_dataset_path=config["busco_dataset_path"],
@@ -61,21 +61,24 @@ elif config['busco_version'] == 5:
                 "mkdir -p {output.busco_outdir}; cd {output.busco_outdir}; "
                 "busco -m {params.mode} -i {input} -c {threads} "
                 "-l {params.busco_dataset_path} -o {params.output_prefix} 1>../../../{log.std} 2>&1; "
-                "mv {params.output_prefix}/* . ; rm -r {params.output_prefix}/; "
-                "mv run*/* . ; rm -r run*; "
-                "mv full_table.tsv full_table_{params.output_prefix}.tsv; "
-                "mv missing_busco_list.tsv missing_busco_list_{params.output_prefix}.tsv; "
-                "mv short_summary.txt short_summary_{params.output_prefix}.txt; "
+                "mv {params.output_prefix}/* . 1>../../../{log.std} 2>&1; "
+                "rm -r {params.output_prefix}/ 1>../../../{log.std} 2>&1; "
+                "rm -r busco_sequences/ 1>../../../{log.std} 2>&1; " # empty directory
+                "mv run*/* . 1>../../../{log.std} 2>&1; "
+                "rm -r run* 1>../../../{log.std} 2>&1; "
+                "mv full_table.tsv full_table_{params.output_prefix}.tsv 1>../../../{log.std} 2>&1; "
+                "mv missing_busco_list.tsv missing_busco_list_{params.output_prefix}.tsv 1>../../../{log.std} 2>&1; "
+                "mv short_summary.txt short_summary_{params.output_prefix}.txt 1>../../../{log.std} 2>&1; "
 
     elif config['gene_prediction_tool'] == "augustus":
         rule busco5_augustus:
             input:
                 genome_dir_path / "{species}.fasta"
             output:
-                busco_outdir=directory(busco_dir_path / "{species}"),
-                single_copy_busco_sequences=directory(busco_dir_path / "{species}/single_copy_busco_sequences"),
-                augustus_gff=directory(busco_dir_path / "{species}/augustus_output/gff"),
-                summary=busco_dir_path / "{species}/short_summary_{species}.txt"
+                busco_outdir=protected(directory(busco_dir_path / "{species}")),
+                single_copy_busco_sequences=protected(directory(busco_dir_path / "{species}/single_copy_busco_sequences")),
+                augustus_gff=protected(directory(busco_dir_path / "{species}/augustus_output/gff")),
+                summary=protected(busco_dir_path / "{species}/short_summary_{species}.txt")
             params:
                 mode=config["busco_mode"],
                 species=config["augustus_species"],
@@ -100,7 +103,7 @@ elif config['busco_version'] == 5:
                 "busco --augustus --augustus_species {params.species} -m {params.mode} "
                 "-i {input} -c {threads} -l {params.busco_dataset_path} -o {params.output_prefix} 1>../../../{log.std} 2>&1; "
                 "mv {params.output_prefix}/* ./ ; rm -r {params.output_prefix}/ ; "
-                "mv augustus_output augustus_output_ ; " # empty directory
+                "rm -r augustus_output/ ; " # empty directory
                 "mv run*/* ./ ; rm -r run* ; "
                 "mv full_table.tsv full_table_{params.output_prefix}.tsv ; "
                 "mv missing_busco_list.tsv missing_busco_list_{params.output_prefix}.tsv ; "
