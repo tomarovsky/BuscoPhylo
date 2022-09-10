@@ -31,7 +31,7 @@ concat_alignments_dir: "concat_alignments"
 benchmark_dir: "benchmarks"
 
 #---- Tool threads ----
-busco_threads: 8
+busco_threads: 16
 species_ids_threads: 1
 common_ids_threads: 1
 merged_sequences_threads: 1
@@ -42,7 +42,7 @@ iqtree_threads: 20
 mrbayes_threads: 20
 
 #---- Tool memory ----
-busco_mem_mb: 30000
+busco_mem_mb: 140000
 species_ids_mem_mb: 5000
 common_ids_mem_mb: 5000
 merged_sequences_mem_mb: 5000
